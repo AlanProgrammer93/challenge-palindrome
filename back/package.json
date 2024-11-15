@@ -1,0 +1,25 @@
+{
+  "name": "back",
+  "version": "0.1.0",
+  "main": "index.js",
+  "type": "module",
+  "private": true,
+  
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "SurisCode",
+  "license": "ISC",
+  "description": "Backend para el challenge de SurisCode de palindromes",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.9.0"
+  }
+}

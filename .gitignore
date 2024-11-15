@@ -1,0 +1,11 @@
+# Dependency directories
+node_modules/
+
+# Ignore built ts files
+dist/
+
+# Ignore Next.js build
+.next/
+
+# Ignore package lock   
+package-lock.json
