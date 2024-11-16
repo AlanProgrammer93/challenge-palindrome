@@ -6,12 +6,16 @@ interface HistoryListProps {
 
 export default function HistoryList({ history }: HistoryListProps) {
     return (
-        <ul style={{ listStyleType: "none", padding: 0 }}>
-            {history.map(({ _id, text }) => (
-                <li key={_id} style={{ marginBottom: "0.5rem" }}>
-                    <strong>{text}</strong>
-                </li>
-            ))}
-        </ul>
+        <div className="w-[90vw] md:w-[50vw]">
+            <div className="h-[calc(100vh-200px)] scrollbar overflow-y-auto">
+            <ul>
+                {history.map(({ _id, text }) => (
+                    <li key={_id} className="text-white hover:bg-gray-600 p-2">
+                        <strong className='break-words'>{text}</strong>
+                    </li>
+                ))}
+            </ul>
+            </div>
+        </div>
     );
 }

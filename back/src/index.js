@@ -46,7 +46,7 @@ app.post('/isPalindrome', async (req, res) => {
 });
 
 app.get('/historial', async (req, res) => {
-  const historial = await Input.find().select('text')
+  const historial = await Input.find().select('text').sort({ createdAt: -1 })
   return res.status(200).json({ historial });
 });
 

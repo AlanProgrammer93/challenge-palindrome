@@ -30,14 +30,13 @@ export default function Home() {
     setHistory([entry, ...history]);
   };
 
-
   return (
     <>
-      <div style={{ padding: "2rem", fontFamily: "Arial, sans-serif" }}>
+      <main className="flex min-h-screen flex-col items-center bg-slate-700">
         <PalindromeForm onNewEntry={addNewEntry} />
-        <h2>Historial</h2>
-        {loading ? <p>Cargando historial...</p> : <HistoryList history={history} />}
-      </div>
+        <h2 className='text-white py-2 text-2xl'>Historial</h2>
+        {loading ? <p className='text-white text-2xl'>Cargando historial...</p> : <HistoryList history={history} />}
+      </main>
     </>
   );
 }
