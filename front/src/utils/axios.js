@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const clientAxios = axios.create({
-    baseURL: `http://localhost:3000`
+    baseURL: `https://desafio-palindromo.onrender.com`
 });
 
 export default clientAxios;
