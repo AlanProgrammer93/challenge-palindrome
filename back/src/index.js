@@ -22,32 +22,55 @@ app.get('/ping', (req, res) => {
 });
 
 app.post('/isPalindrome', async (req, res) => {
-  const { text } = req.body;
+  try {
+    const { text } = req.body;
 
-  if (!text) return res.status(400).json({ message: 'Debes ingresar un texto.' });
+    if (!text) return res.status(400).json({ message: 'Debes ingresar un texto.' });
 
-  //const normalizedText = text.toLowerCase().replace(/[^a-z0-9]/g, '');
+    //const normalizedText = text.toLowerCase().replace(/[^a-z0-9]/g, '');
 
-  const normalizedText = text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]/g, '');
+    const normalizedText = text
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '');
 
-  const isPalindrome = normalizedText === normalizedText.split('').reverse().join('');
+    const isPalindrome = normalizedText === normalizedText.split('').reverse().join('');
 
-  const newInput = new Input({
-    text,
-  });
+    const newInput = new Input({
+      text,
+      isPalindrome
+    });
 
-  await newInput.save()
+    await newInput.save()
 
-  return res.status(200).json({ newInput: { _id: newInput._id, text: newInput.text }, isPalindrome: isPalindrome ? 'Es Palíndromo' : 'No Es Palíndromo' });
+    return res.status(200).json({ newInput: { _id: newInput._id, text: newInput.text, isPalindrome }, isPalindromeText: isPalindrome ? 'Es Palíndromo' : 'No Es Palíndromo' });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Ha ocurrido un error interno.'
+    });
+  }
+
 });
 
 app.get('/historial', async (req, res) => {
-  const historial = await Input.find().select('text').sort({ createdAt: -1 })
+  const historial = await Input.find().select('text isPalindrome').sort({ createdAt: -1 })
   return res.status(200).json({ historial });
+});
+
+app.post('/delete', async (req, res) => {
+  try {
+    const historial = await Input.find().sort({ createdAt: -1 })
+    for (let i = 0; i < historial.length; i++) {
+      await Input.findByIdAndDelete(historial[i]._id)
+    }
+
+    return res.status(200).json({ message: 'Historial Eliminado.' });
+  } catch (error) {
+    return res.status(500).json({
+      message: 'Ha ocurrido un error interno.'
+    });
+  }
 });
 
 app.listen(3000, () => {

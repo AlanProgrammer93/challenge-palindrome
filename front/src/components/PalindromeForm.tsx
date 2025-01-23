@@ -1,6 +1,6 @@
 import { useState } from "react";
-import axios from "axios";
 import { PalindromeEntry } from "@/types";
+import clientAxios from "@/utils/axios";
 
 interface PalindromeFormProps {
     onNewEntry: (entry: PalindromeEntry) => void;
@@ -23,8 +23,8 @@ export default function PalindromeForm({ onNewEntry }: PalindromeFormProps) {
         }
 
         try {
-            const response = await axios.post(`http://localhost:3000/isPalindrome`, { text });
-            setResult(response.data.isPalindrome);
+            const response = await clientAxios.post(`/isPalindrome`, { text });
+            setResult(response.data.isPalindromeText);
             onNewEntry(response.data.newInput);
             setNewText(response.data.newInput.text)
             setText("");
@@ -32,7 +32,6 @@ export default function PalindromeForm({ onNewEntry }: PalindromeFormProps) {
         } catch (err) {
             setError("Error al procesar la solicitud.");
             setResult(null)
-            console.error(err);
         }
     };
 
@@ -56,7 +55,7 @@ export default function PalindromeForm({ onNewEntry }: PalindromeFormProps) {
                 </div>
             </form>
             {result && (
-                <p className='text-green-500 break-words'>
+                <p className='text-white break-words'>
                     Resultado: <strong>"{newText}"</strong> {" "}
                     {result}.
                 </p>

@@ -8,6 +8,9 @@ const inputSchema = new Schema({
         required: true,
         trim: true
     },
+    isPalindrome: {
+        type: Boolean
+    }
 },
     { timestamps: true });
 

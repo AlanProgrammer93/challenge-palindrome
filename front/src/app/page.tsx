@@ -3,8 +3,8 @@
 import HistoryList from "@/components/HistoryList";
 import PalindromeForm from "@/components/PalindromeForm";
 import { PalindromeEntry } from "@/types";
-import axios from "axios";
 import { useEffect, useState } from "react";
+import clientAxios from '../utils/axios'
 
 export default function Home() {
   const [history, setHistory] = useState<PalindromeEntry[]>([]);
@@ -17,8 +17,9 @@ export default function Home() {
   const fetchHistory = async () => {
     setLoading(true);
     try {
-      const response = await axios.get(`http://localhost:3000/historial`);
+      const response = await clientAxios.get(`/historial`);
       setHistory(response.data.historial);
+
     } catch (error) {
       console.error("Error fetching history:", error);
     } finally {
@@ -30,12 +31,25 @@ export default function Home() {
     setHistory([entry, ...history]);
   };
 
+  const handleDelete = async () => {
+    setLoading(true);
+    try {
+      await clientAxios.post(`/delete`)
+        .then((data) => {
+          setHistory([]);
+          setLoading(false);
+        })
+    } catch {
+      setLoading(false);
+    }
+  }
+
   return (
     <>
       <main className="flex min-h-screen flex-col items-center bg-slate-700">
         <PalindromeForm onNewEntry={addNewEntry} />
         <h2 className='text-white py-2 text-2xl'>Historial</h2>
-        {loading ? <p className='text-white text-2xl'>Cargando historial...</p> : <HistoryList history={history} />}
+        {loading ? <p className='text-white text-2xl'>Cargando historial...</p> : <HistoryList history={history} handleDelete={handleDelete} />}
       </main>
     </>
   );

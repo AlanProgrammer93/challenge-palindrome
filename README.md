@@ -42,6 +42,4 @@ Para realizar el challenge, puedes hacer un fork del repositorio que te dejamos 
 
 ## Entregables
 
-- Código del backend y frontend, documentado y con instrucciones claras sobre cómo ejecutar la aplicación.
 - El código del backend y del frontend deberá estar en un repositorio de GitHub de manera pública.
-- Una vez finalizado, en el email del entregable deberás incluir el link al repositorio de GitHub junto al hash del commit.
