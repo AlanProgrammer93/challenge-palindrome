@@ -35,6 +35,7 @@ export default function Home() {
     setLoading(true);
     try {
       await clientAxios.post(`/delete`)
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         .then((data) => {
           setHistory([]);
           setLoading(false);

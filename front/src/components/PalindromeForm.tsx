@@ -14,7 +14,7 @@ export default function PalindromeForm({ onNewEntry }: PalindromeFormProps) {
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-
+        
         if (!text) {
             setNewText('')
             setError("Debes ingresar un texto.");
@@ -30,6 +30,7 @@ export default function PalindromeForm({ onNewEntry }: PalindromeFormProps) {
             setText("");
             setError("");
         } catch (err) {
+            console.error("Error processing request:", err);
             setError("Error al procesar la solicitud.");
             setResult(null)
         }
